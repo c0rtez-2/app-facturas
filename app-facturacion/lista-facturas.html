@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Mis Facturas</title>
+    <!-- PWA - Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA - Meta tags para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Facturas">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- PWA - Meta tags generales -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lista.css">
+    
+    <!-- Librería PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script>
+        if (!localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Mis Facturas</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="lista-wrapper">
+            
+            <button class="btn-volver" onclick="location.href='menu.html'">← Volver al Menú</button>
+
+            <section class="lista-container">
+                <div class="lista-header">
+                    <h2>📂 Facturas</h2>
+                    <button class="btn-nueva" onclick="location.href='nueva-factura.html'">+ Nueva</button>
+                </div>
+
+                <!-- Filtros -->
+                <div class="filtros-row">
+                    <div class="buscador">
+                        <input type="text" id="buscar-factura" placeholder="🔍 Buscar...">
+                    </div>
+                    <div class="filtro-estado">
+                        <select id="filtro-estado" onchange="filtrarPorEstado()">
+                            <option value="todos">Todos</option>
+                            <option value="pendiente">⏳ Pendientes</option>
+                            <option value="pagado">✅ Pagados</option>
+                            <option value="parcial">🔄 Parciales</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Lista de facturas -->
+                <div class="lista-facturas" id="lista-facturas">
+                    <!-- Se llena con JS -->
+                </div>
+
+                <div id="mensaje-vacio" class="mensaje-vacio" style="display:none;">
+                    <p>📭 No hay facturas</p>
+                    <button onclick="location.href='nueva-factura.html'">Crear Primera Factura</button>
+                </div>
+
+                <!-- Resumen estadísticas -->
+                <div class="resumen-stats">
+                    <div class="stat-card">
+                        <span class="stat-numero" id="total-facturas">0</span>
+                        <span class="stat-label">Facturas</span>
+                    </div>
+                    <div class="stat-card stat-verde">
+                        <span class="stat-numero" id="total-facturado">0.00 €</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-card stat-naranja">
+                        <span class="stat-numero" id="total-pendiente">0.00 €</span>
+                        <span class="stat-label">Pendiente</span>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- MODAL PREVIEW -->
+<div id="modal-preview" class="modal" style="display:none;">
+    <div class="modal-content modal-preview-content">
+        <h3 id="preview-titulo">
+            Vista Previa
+            <span class="modal-close" onclick="cerrarPreview()">&times;</span>
+        </h3>
+        <div id="preview-contenido"></div>
+        <div class="preview-acciones">
+            <button class="btn-guardar" id="btn-descargar-pdf">📥 Descargar PDF</button>
+            <button class="btn-cancelar" onclick="cerrarPreview()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+    <!-- MODAL CAMBIAR ESTADO -->
+    <div id="modal-estado" class="modal" style="display:none;">
+        <div class="modal-content modal-estado-content">
+            <h3>
+                Cambiar Estado
+                <span class="modal-close" onclick="cerrarModalEstado()">&times;</span>
+            </h3>
+            <div class="estado-opciones">
+                <button class="estado-btn pendiente" onclick="cambiarEstado('pendiente')">
+                    <span>⏳</span> Pendiente
+                </button>
+                <button class="estado-btn parcial" onclick="cambiarEstado('parcial')">
+                    <span>🔄</span> Pago Parcial
+                </button>
+                <button class="estado-btn pagado" onclick="cambiarEstado('pagado')">
+                    <span>✅</span> Pagado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS</p>
+    </footer>
+
+    <script src="lista.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Registro</title>
+    <!-- PWA - Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA - Meta tags para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Facturas">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- PWA - Meta tags generales -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- ✅ VERIFICACIÓN AQUÍ ARRIBA (antes de que cargue la página) -->
+    <script>
+        if (localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('menu.html');
+            // replace() es mejor que href porque no deja historial
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Sistema de Gestión de Facturas</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="registro-container">
+            <div class="form-header">
+                <h2>Registro de Empresa</h2>
+                <p class="subtitulo">Introduce los datos de tu empresa para comenzar</p>
+            </div>
+
+            <form id="formulario_empresa">
+
+                <div class="form-group">
+                    <label for="empresa">
+                        <span class="icon">🏢</span> Nombre de la Empresa *
+                    </label>
+                    <input
+                        type="text"
+                        id="empresa"
+                        name="empresa"
+                        placeholder="Ej: Mi Empresa S.L."
+                        required
+                        autocomplete="organization">
+                    <span class="error-msg" id="error-empresa"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="CIF">
+                        <span class="icon">🆔</span> DNI/CIF *
+                    </label>
+                    <input
+                        type="text"
+                        id="CIF"
+                        name="CIF"
+                        placeholder="Ej: B12345678"
+                        required
+                        maxlength="9"
+                        title="Introduce un CIF/NIF válido">
+                    <span class="error-msg" id="error-cif"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">
+                        <span class="icon">📞</span> Teléfono *
+                    </label>
+                    <input
+                        type="tel"
+                        id="telefono"
+                        name="telefono"
+                        placeholder="Ej: 666555444"
+                        required
+                        maxlength="9"
+                        title="Introduce un teléfono de 9 dígitos"
+                        autocomplete="tel">
+                    <span class="error-msg" id="error-telefono"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">
+                        <span class="icon">📍</span> Dirección *
+                    </label>
+                    <input
+                        type="text"
+                        id="direccion"
+                        name="direccion"
+                        placeholder="Ej: Calle Principal 123, Madrid"
+                        required
+                        autocomplete="street-address">
+                    <span class="error-msg" id="error-direccion"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <span class="icon">✉️</span> Email *
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Ej: info@miempresa.com"
+                        required
+                        autocomplete="email">
+                    <span class="error-msg" id="error-email"></span>
+                </div>
+
+                <button type="submit" class="btn-guardar">
+                    Guardar y Continuar ➜
+                </button>
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS | Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Script principal AL FINAL -->
+    <script src="localStorage.js"></script>
+
+    <script>
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('✅ Service Worker registrado', reg))
+            .catch(err => console.log('❌ Error en Service Worker', err));
+    }
+</script>
+
+</body>
+</html>

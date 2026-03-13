@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Productos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="productos.css">
+    <!-- PWA - Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA - Meta tags para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Facturas">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- PWA - Meta tags generales -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+        if (!localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Catálogo de Productos</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="productos-wrapper">
+            
+            <button class="btn-volver" onclick="location.href='menu.html'">← Volver al Menú</button>
+
+            <section class="productos-container">
+                <div class="productos-header">
+                    <h2>📦 Mis Productos/Servicios</h2>
+                    <button class="btn-nuevo" onclick="mostrarFormulario()">+ Nuevo Producto</button>
+                </div>
+
+                <!-- Formulario nuevo producto -->
+                <div id="form-producto-container" class="form-producto-container" style="display:none;">
+                    <h3>Añadir Nuevo Producto</h3>
+                    <form id="form-producto">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="producto-nombre">Nombre *</label>
+                                <input type="text" id="producto-nombre" required placeholder="Nombre del producto">
+                            </div>
+                            <div class="form-group">
+                                <label for="producto-codigo">Código/Referencia</label>
+                                <input type="text" id="producto-codigo" placeholder="REF-001">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="producto-precio">Precio (€) *</label>
+                                <input type="number" id="producto-precio" required min="0" step="0.01" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="producto-iva">IVA (%)</label>
+                                <select id="producto-iva">
+                                    <option value="21">21% (General)</option>
+                                    <option value="10">10% (Reducido)</option>
+                                    <option value="4">4% (Superreducido)</option>
+                                    <option value="0">0% (Exento)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="producto-descripcion">Descripción</label>
+                            <textarea id="producto-descripcion" rows="2" placeholder="Descripción del producto o servicio"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-guardar">💾 Guardar Producto</button>
+                            <button type="button" class="btn-cancelar" onclick="ocultarFormulario()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Buscador -->
+                <div class="buscador">
+                    <input type="text" id="buscar-producto" placeholder="🔍 Buscar por nombre o código...">
+                </div>
+
+                <!-- Grid de productos -->
+                <div class="grid-productos" id="grid-productos">
+                    <!-- Se llena con JS -->
+                </div>
+
+                <div id="mensaje-vacio" class="mensaje-vacio" style="display:none;">
+                    <p>📭 No hay productos guardados</p>
+                    <button onclick="mostrarFormulario()">Añadir Primer Producto</button>
+                </div>
+
+                <!-- Contador -->
+                <div class="contador-productos">
+                    Total: <strong id="total-productos">0</strong> productos
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS | Todos los derechos reservados</p>
+    </footer>
+
+    <script src="productos.js"></script>
+
+</body>
+</html>

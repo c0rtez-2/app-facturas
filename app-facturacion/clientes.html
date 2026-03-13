@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Clientes</title>
+    <!-- PWA - Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA - Meta tags para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Facturas">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- PWA - Meta tags generales -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="clientes.css">
+    
+    <script>
+        if (!localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Gestión de Clientes</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="clientes-wrapper">
+            
+            <button class="btn-volver" onclick="location.href='menu.html'">← Volver al Menú</button>
+
+            <section class="clientes-container">
+                <div class="clientes-header">
+                    <h2>👥 Mis Clientes</h2>
+                    <button class="btn-nuevo" onclick="mostrarFormulario()">+ Nuevo</button>
+                </div>
+
+                <!-- Formulario nuevo cliente -->
+                <div id="form-cliente-container" class="form-cliente-container" style="display:none;">
+                    <h3>Añadir Nuevo Cliente</h3>
+                    <form id="form-cliente">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cliente-nombre">Nombre/Empresa *</label>
+                                <input type="text" id="cliente-nombre" required placeholder="Nombre del cliente">
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente-nif">NIF/CIF *</label>
+                                <input type="text" id="cliente-nif" required placeholder="12345678A" maxlength="9">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cliente-telefono">Teléfono</label>
+                                <input type="tel" id="cliente-telefono" placeholder="666555444" maxlength="9">
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente-email">Email</label>
+                                <input type="email" id="cliente-email" placeholder="cliente@email.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente-direccion">Dirección</label>
+                            <input type="text" id="cliente-direccion" placeholder="Calle, número, ciudad">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-guardar">💾 Guardar</button>
+                            <button type="button" class="btn-cancelar" onclick="ocultarFormulario()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Buscador -->
+                <div class="buscador">
+                    <input type="text" id="buscar-cliente" placeholder="🔍 Buscar cliente...">
+                </div>
+
+                <!-- Lista de clientes -->
+                <div class="lista-clientes" id="lista-clientes">
+                    <!-- Se llena con JS -->
+                </div>
+
+                <div id="mensaje-vacio" class="mensaje-vacio" style="display:none;">
+                    <p>📭 No hay clientes</p>
+                    <button onclick="mostrarFormulario()">+ Añadir</button>
+                </div>
+
+                <!-- Contador -->
+                <div class="contador-clientes">
+                    Total: <strong id="total-clientes">0</strong> clientes
+                </div>
+
+            </section>
+        </div>
+
+        <!-- MODAL HISTORIAL -->
+        <div id="modal-historial" class="modal" style="display:none;">
+            <div class="modal-content">
+                <h3 id="historial-titulo">
+                    Historial
+                    <span class="modal-close" onclick="cerrarModalHistorial()">&times;</span>
+                </h3>
+                <div id="historial-contenido"></div>
+                <div id="historial-resumen"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS</p>
+    </footer>
+
+    <script src="clientes.js"></script>
+
+</body>
+</html>

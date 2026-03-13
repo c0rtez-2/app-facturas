@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Nueva Factura</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="factura.css">
+    <!-- PWA - Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA - Meta tags para iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Facturas">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- PWA - Meta tags generales -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+        if (!localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('index.html');
+        }
+    </script>
+    <script src="https://cdnjs.clodflare.com/ajax/libs/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.clodflare.com/ajax/libshtml12canvas/1.4.1/html12canvas.min.js"></script>
+</head>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Crear Nueva Factura</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="factura-wrapper">
+            
+            <!-- Botón volver -->
+            <button class="btn-volver" onclick="location.href='menu.html'">← Volver al Menú</button>
+
+            <!-- Formulario de factura -->
+            <section class="factura-container">
+                <h2>🧾 Nueva Factura</h2>
+
+                <form id="form-factura">
+                    
+            <!-- DATOS DEL CLIENTE -->
+            <div class="seccion-form">
+                <h3>👤 Datos del Cliente</h3>
+                
+                <!-- SELECTOR DE CLIENTE EXISTENTE -->
+                <div class="form-group selector-cliente-wrapper">
+                    <label for="selector-cliente">Seleccionar Cliente Guardado</label>
+                    <select id="selector-cliente">
+                        <option value="">-- Seleccionar cliente --</option>
+                        <option value="nuevo">➕ Nuevo cliente</option>
+                    </select>
+                </div>
+                
+                <div class="separador">
+                    <span>o introduce los datos manualmente</span>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente-nombre">Nombre/Empresa *</label>
+                        <input type="text" id="cliente-nombre" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cliente-nif">NIF/CIF *</label>
+                        <input type="text" id="cliente-nif" required placeholder="Ej: 12345678A" maxlength="9">
+                    </div>
+            </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="cliente-telefono">Teléfono</label>
+            <input type="tel" id="cliente-telefono" placeholder="Ej: 666555444" maxlength="9">
+        </div>
+        
+        <div class="form-group">
+            <label for="cliente-email">Email</label>
+            <input type="email" id="cliente-email" placeholder="cliente@ejemplo.com">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="cliente-direccion">Dirección</label>
+        <input type="text" id="cliente-direccion" placeholder="Calle, número, ciudad">
+    </div>
+</div>
+
+                    <!-- DATOS DE LA FACTURA -->
+                    <div class="seccion-form">
+                        <h3>📄 Datos de la Factura</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="numero-factura">Número de Factura *</label>
+                                <input type="text" id="numero-factura" required placeholder="Ej: 2025-001">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="fecha-factura">Fecha *</label>
+                                <input type="date" id="fecha-factura" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LÍNEAS DE PRODUCTOS/SERVICIOS -->
+                    <div class="seccion-form">
+                        <h3>📦 Productos/Servicios</h3>
+                        
+                        <div id="lineas-container">
+                            <!-- Se añaden dinámicamente con JS -->
+                        </div>
+                        
+                        <button type="button" class="btn-agregar" onclick="agregarLinea()">+ Añadir Línea</button>
+                    </div>
+
+                    <!-- TOTALES -->
+                    <div class="seccion-totales">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <strong id="subtotal">0.00 €</strong>
+                        </div>
+                        <div class="total-row">
+                            <span>IVA (21%):</span>
+                            <strong id="iva">0.00 €</strong>
+                        </div>
+                        <div class="total-row total-final">
+                            <span>TOTAL:</span>
+                            <strong id="total">0.00 €</strong>
+                        </div>
+                    </div>
+
+                    <!-- ✅ NUEVA SECCIÓN: PAGO, GARANTÍA Y OBSERVACIONES -->
+                    <div class="seccion-form seccion-extra">
+                        <h3>💳 Pago y Condiciones</h3>
+                        
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label for="tipo-pago">Forma de Pago</label>
+                                <select id="tipo-pago">
+                                    <option value="efectivo">💵 Efectivo</option>
+                                    <option value="tarjeta">💳 Tarjeta</option>
+                                    <option value="transferencia">🏦 Transferencia</option>
+                                    <option value="bizum">📱 Bizum</option>
+                                    <option value="paypal">🅿️ PayPal</option>
+                                    <option value="domiciliacion">📋 Domiciliación</option>
+                                    <option value="contrarrembolso">📦 Contrareembolso</option>
+                                    <option value="aplazado">📅 Pago Aplazado</option>
+                                    <option value="otro">📝 Otro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="estado-pago">Estado</label>
+                                <select id="estado-pago">
+                                    <option value="pendiente">⏳ Pendiente</option>
+                                    <option value="pagado">✅ Pagado</option>
+                                    <option value="parcial">🔄 Pago Parcial</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="garantia">Garantía</label>
+                                <select id="garantia">
+                                    <option value="sin">Sin garantía</option>
+                                    <option value="15dias">15 días</option>
+                                    <option value="30dias">30 días</option>
+                                    <option value="3meses">3 meses</option>
+                                    <option value="6meses">6 meses</option>
+                                    <option value="1año">1 año</option>
+                                    <option value="2años">2 años</option>
+                                    <option value="3años">3 años</option>
+                                    <option value="personalizada">Personalizada</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Garantía personalizada (oculto por defecto) -->
+                        <div class="form-group" id="garantia-personalizada-grupo" style="display:none;">
+                            <label for="garantia-personalizada">Especificar Garantía</label>
+                            <input type="text" id="garantia-personalizada" placeholder="Ej: 5 años en piezas, 2 años mano de obra">
+                        </div>
+                        
+                        <!-- Observaciones -->
+                        <div class="form-group">
+                            <label for="observaciones">Observaciones / Notas</label>
+                            <textarea id="observaciones" rows="3" placeholder="Condiciones especiales, notas para el cliente, descripción del trabajo realizado..."></textarea>
+                        </div>
+                        
+                        <!-- Condiciones legales predefinidas -->
+                        <div class="condiciones-rapidas">
+                            <label>Añadir condición rápida:</label>
+                            <div class="tags-condiciones">
+                                <button type="button" class="tag-condicion" onclick="agregarCondicion('IVA incluido en los precios mostrados.')">+ IVA incluido</button>
+                                <button type="button" class="tag-condicion" onclick="agregarCondicion('Presupuesto válido durante 30 días.')">+ Validez 30 días</button>
+                                <button type="button" class="tag-condicion" onclick="agregarCondicion('No se admiten devoluciones una vez iniciado el servicio.')">+ Sin devolución</button>
+                                <button type="button" class="tag-condicion" onclick="agregarCondicion('El plazo de entrega es de 5-7 días laborables.')">+ Plazo entrega</button>
+                                <button type="button" class="tag-condicion" onclick="agregarCondicion('Garantía válida con presentación de esta factura.')">+ Garantía con factura</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTONES -->
+                    <div class="botones-factura">
+                        <button type="submit" class="btn-guardar">💾 Guardar Factura</button>
+                        <button type="button" class="btn-preview" onclick="previsualizarFactura()">👁️ Vista Previa</button>
+                    </div>
+
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS | Todos los derechos reservados</p>
+    </footer>
+
+    <script src="factura.js"></script>
+
+    <script src="factura.js"></script>
+    <script src="generarPDF.js"></script> <!-- ✅ NUEVO -->
+</body>
+</html>
+</html>

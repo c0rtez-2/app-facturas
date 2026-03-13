@@ -1,0 +1,414 @@
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA FACTURA
+   ========================================== */
+
+.factura-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.btn-volver {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
+}
+
+.factura-container {
+    background: #ffffff !important;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+.factura-container h2 {
+    text-align: center;
+    color: #2563eb !important;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+}
+
+/* Selector de cliente */
+.selector-cliente-wrapper {
+    margin-bottom: 1rem;
+}
+
+.selector-cliente-wrapper select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    cursor: pointer;
+}
+
+.selector-cliente-wrapper select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Separador */
+.separador {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.separador::before,
+.separador::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.separador::before {
+    left: 0;
+}
+
+.separador::after {
+    right: 0;
+}
+
+.separador span {
+    background: #f8fafc;
+    padding: 0 1rem;
+    color: #64748b !important;
+    font-size: 0.9rem;
+}
+
+/* Secciones del formulario */
+.seccion-form {
+    background: #f8fafc !important;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #2563eb;
+}
+
+.seccion-form h3 {
+    color: #1e293b !important;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Filas del formulario */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Líneas de productos - NUEVO DISEÑO */
+.linea-producto {
+    display: grid;
+    grid-template-columns: 1fr 2fr 80px 100px 100px 50px;
+    gap: 0.5rem;
+    align-items: end;
+    padding: 1rem;
+    background: #ffffff !important;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+.linea-producto .form-group {
+    margin-bottom: 0;
+}
+
+.linea-producto label {
+    display: block;
+    font-size: 0.75rem;
+    color: #64748b !important;
+    margin-bottom: 0.25rem;
+}
+
+.linea-producto input,
+.linea-producto select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #ffffff !important;
+    color: #1e293b !important;
+}
+
+.linea-producto input:focus,
+.linea-producto select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.linea-producto input:disabled {
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+}
+
+.btn-eliminar-linea {
+    background: #ef4444 !important;
+    color: white !important;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    height: 38px;
+}
+
+.btn-eliminar-linea:hover {
+    background: #dc2626 !important;
+    transform: scale(1.05);
+}
+
+.btn-agregar {
+    width: 100%;
+    background: #10b981 !important;
+    color: white !important;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-agregar:hover {
+    background: #059669 !important;
+    transform: translateY(-2px);
+}
+
+/* Totales */
+.seccion-totales {
+    background: #f1f5f9 !important;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.total-row span {
+    color: #1e293b !important;
+}
+
+.total-row strong {
+    color: #2563eb !important;
+}
+
+.total-final {
+    border-top: 2px solid #2563eb;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.total-final strong {
+    color: #2563eb !important;
+    font-size: 1.5rem;
+}
+
+/* Botones de acción */
+.botones-factura {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-guardar {
+    background: #2563eb !important;
+    color: white !important;
+}
+
+.btn-preview {
+    background: #64748b !important;
+    color: white !important;
+    padding: 0.875rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-preview:hover {
+    background: #475569 !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .linea-producto {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .linea-producto .selector-producto-group {
+        grid-column: 1 / -1;
+    }
+    
+    .linea-producto .descripcion-group {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .linea-producto {
+        grid-template-columns: 1fr;
+    }
+    
+    .botones-factura {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   SECCIÓN EXTRA: PAGO, GARANTÍA, OBSERVACIONES
+   ========================================== */
+
+.seccion-extra {
+    border-left-color: #10b981 !important;
+}
+
+.seccion-extra h3 {
+    color: #10b981 !important;
+}
+
+/* Grid de 3 columnas */
+.form-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Selects estilizados */
+.seccion-extra select {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.seccion-extra select:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Textarea de observaciones */
+.seccion-extra textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    transition: all 0.3s ease;
+}
+
+.seccion-extra textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.seccion-extra textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* Condiciones rápidas (tags) */
+.condiciones-rapidas {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.condiciones-rapidas > label {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b !important;
+    margin-bottom: 0.5rem;
+}
+
+.tags-condiciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-condicion {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+}
+
+.tag-condicion:hover {
+    background: #e0f2fe !important;
+    border-color: #0ea5e9 !important;
+    color: #0369a1 !important;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-row-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    .tags-condiciones {
+        flex-direction: column;
+    }
+    
+    .tag-condicion {
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .form-row-3 {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP-FACTURAS - Menú Principal</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        if (!localStorage.getItem('usuarioRegistrado')) {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>📋 APP-FACTURAS</h1>
+            <p>Panel de Control</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Bienvenida con datos de la empresa -->
+        <section class="bienvenida">
+            <h2>Bienvenido, <span id="nombre-empresa">Empresa</span></h2>
+            <p class="info-empresa-header">
+                CIF: <span id="show-cif">-</span> |
+                Tel: <span id="show-tel">-</span> |
+                Email: <span id="show-email">-</span>
+            </p>
+        </section>
+
+        <!-- Menú de opciones -->
+        <section class="menu-container">
+            <h3>¿Qué deseas hacer?</h3>
+
+            <div class="menu-grid">
+
+                <!-- ✅ CREAR FACTURA - FUNCIONA -->
+                <div class="menu-card" onclick="location.href='nueva-factura.html'">
+                    <div class="card-icon">🧾</div>
+                    <h4>Crear Factura</h4>
+                    <p>Genera una nueva factura</p>
+                </div>
+
+                <!-- ✅ VER FACTURAS - FUNCIONA -->
+                <div class="menu-card" onclick="location.href='lista-facturas.html'">
+                    <div class="card-icon">📂</div>
+                    <h4>Ver Facturas</h4>
+                    <p>Consulta facturas emitidas</p>
+                </div>
+
+                <!-- ✅ CLIENTES - FUNCIONA -->
+                <div class="menu-card" onclick="location.href='clientes.html'">
+                    <div class="card-icon">👥</div>
+                    <h4>Clientes</h4>
+                    <p>Gestiona tus clientes</p>
+                </div>
+
+                <!-- ✅ PRODUCTOS - FUNCIONA -->
+                <div class="menu-card" onclick="location.href='productos.html'">
+                    <div class="card-icon">📦</div>
+                    <h4>Productos</h4>
+                    <p>Catálogo de productos</p>
+                </div>
+
+                <!-- MI EMPRESA -->
+                <div class="menu-card" onclick="mostrarDatosEmpresa()">
+                    <div class="card-icon">⚙️</div>
+                    <h4>Mi Empresa</h4>
+                    <p>Ver/Editar datos empresa</p>
+                </div>
+
+                <!-- CERRAR SESIÓN -->
+                <div class="menu-card card-danger" onclick="cerrarSesion()">
+                    <div class="card-icon">🚪</div>
+                    <h4>Cerrar Sesión</h4>
+                    <p>Borrar datos y salir</p>
+                </div>
+
+            </div>
+        </section>
+
+<!-- Modal datos empresa - COMPACTO -->
+<div id="modal-empresa" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>
+            Mi Empresa
+            <span class="modal-close" onclick="cerrarModal()">&times;</span>
+        </h3>
+        <div id="datos-empresa-detalle"></div>
+    </div>
+</div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 APP-FACTURAS | Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+    // ========================================
+    //  CARGAR DATOS DE LA EMPRESA AL ABRIR
+    // ========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const datos = JSON.parse(localStorage.getItem('datosEmpresa'));
+
+        if (datos) {
+            document.getElementById('nombre-empresa').textContent = datos.empresa;
+            document.getElementById('show-cif').textContent = datos.CIF;
+            document.getElementById('show-tel').textContent = datos.telefono;
+            document.getElementById('show-email').textContent = datos.email;
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        const modal = document.getElementById('modal-empresa');
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+    });
+
+    // ========================================
+    //  CERRAR SESIÓN
+    // ========================================
+    function cerrarSesion() {
+        const confirmar = confirm(
+            '⚠️ ¿Estás seguro?\n\n' +
+            'Se borrarán TODOS los datos guardados.\n' +
+            'Tendrás que registrarte de nuevo.'
+        );
+
+        if (confirmar) {
+            localStorage.clear();
+            window.location.replace('index.html');
+        }
+    }
+
+    // ========================================
+    //  MOSTRAR MODAL MI EMPRESA
+    // ========================================
+    function mostrarDatosEmpresa() {
+        const datos = JSON.parse(localStorage.getItem('datosEmpresa'));
+        const modal = document.getElementById('modal-empresa');
+        const detalle = document.getElementById('datos-empresa-detalle');
+
+        if (datos) {
+            const fecha = datos.fechaRegistro || 'No registrada';
+            
+            detalle.innerHTML = `
+                <div class="dato-item">
+                    <strong>Empresa</strong>
+                    <span>${datos.empresa}</span>
+                </div>
+                <div class="dato-item">
+                    <strong>CIF</strong>
+                    <span>${datos.CIF}</span>
+                </div>
+                <div class="dato-item">
+                    <strong>Teléfono</strong>
+                    <span>${datos.telefono}</span>
+                </div>
+                <div class="dato-item">
+                    <strong>Dirección</strong>
+                    <span>${datos.direccion}</span>
+                </div>
+                <div class="dato-item">
+                    <strong>Email</strong>
+                    <span>${datos.email}</span>
+                </div>
+                <div class="dato-item dato-fecha">
+                    <strong>Registrado</strong>
+                    <span>${fecha}</span>
+                </div>
+            `;
+        }
+
+        modal.style.display = 'flex';
+    }
+
+    // ========================================
+    //  CERRAR MODAL - FUNCIÓN GLOBAL
+    // ========================================
+    function cerrarModal() {
+        document.getElementById('modal-empresa').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

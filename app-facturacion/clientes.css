@@ -1,0 +1,481 @@
+/* ==========================================
+   CLIENTES - CON MENÚ HAMBURGUESA
+   ========================================== */
+
+.clientes-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.clientes-container {
+    background: #ffffff !important;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.clientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.clientes-header h2 {
+    color: #1e293b !important;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.btn-nuevo {
+    background: #10b981 !important;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Formulario */
+.form-cliente-container {
+    background: #f8fafc !important;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 3px solid #2563eb;
+}
+
+.form-cliente-container h3 {
+    margin: 0 0 1rem 0;
+    color: #2563eb !important;
+    font-size: 1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.form-group {
+    margin-bottom: 0.75rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b !important;
+    margin-bottom: 0.25rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #ffffff !important;
+    color: #1e293b !important;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.form-buttons button {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.btn-cancelar {
+    background: #64748b !important;
+    color: white !important;
+}
+
+/* Buscador */
+.buscador {
+    margin-bottom: 1rem;
+}
+
+.buscador input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #ffffff !important;
+    color: #1e293b !important;
+}
+
+/* ==========================================
+   TARJETAS DE CLIENTE CON MENÚ HAMBURGUESA
+   ========================================== */
+
+.lista-clientes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cliente-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.cliente-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.cliente-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cliente-info h4 {
+    color: #1e293b !important;
+    font-size: 0.95rem;
+    margin: 0 0 0.25rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cliente-datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #64748b !important;
+    margin: 0;
+}
+
+.cliente-datos span {
+    color: #64748b !important;
+}
+
+.cliente-stats {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+}
+
+.stat-badge {
+    background: #f1f5f9;
+    color: #475569 !important;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.stat-badge.total {
+    background: #dcfce7;
+    color: #15803d !important;
+}
+
+/* ==========================================
+   MENÚ HAMBURGUESA
+   ========================================== */
+
+.menu-hamburguesa {
+    position: relative;
+}
+
+.btn-hamburguesa {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.btn-hamburguesa:hover {
+    background: #f1f5f9;
+}
+
+.btn-hamburguesa span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #64748b;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.btn-hamburguesa:hover span {
+    background: #1e293b;
+}
+
+/* Menú desplegable */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    min-width: 160px;
+    z-index: 100;
+    overflow: hidden;
+    animation: slideDown 0.15s ease;
+}
+
+.menu-dropdown.activo {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-dropdown button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: none;
+    background: transparent;
+    color: #1e293b !important;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.menu-dropdown button:hover {
+    background: #f8fafc;
+}
+
+.menu-dropdown button .emoji {
+    font-size: 1rem;
+}
+
+/* Separador en el menú */
+.menu-dropdown .separador {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 0.25rem 0;
+}
+
+/* Opción de eliminar en rojo */
+.menu-dropdown button.btn-danger {
+    color: #ef4444 !important;
+}
+
+.menu-dropdown button.btn-danger:hover {
+    background: #fef2f2;
+}
+
+/* ==========================================
+   MODAL COMPACTO
+   ========================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background: #ffffff !important;
+    border-radius: 12px;
+    max-width: 340px;
+    width: 92%;
+    max-height: 70vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    animation: modalSlide 0.2s ease;
+}
+
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-content h3 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff !important;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-close {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+}
+
+#historial-contenido {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.historial-lista {
+    padding: 0;
+}
+
+.historial-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.historial-item:last-child {
+    border-bottom: none;
+}
+
+.historial-info strong {
+    color: #1e293b !important;
+    font-size: 0.85rem;
+    display: block;
+}
+
+.historial-info .fecha {
+    color: #94a3b8 !important;
+    font-size: 0.7rem;
+}
+
+.historial-total strong {
+    color: #10b981 !important;
+    font-size: 0.9rem;
+}
+
+.historial-vacio {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+.historial-vacio p {
+    color: #94a3b8 !important;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.historial-resumen {
+    border-top: 1px solid #e2e8f0;
+}
+
+.resumen-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: #f8fafc;
+}
+
+.resumen-total span {
+    color: #64748b !important;
+    font-size: 0.75rem;
+}
+
+.resumen-total strong {
+    color: #10b981 !important;
+    font-size: 1rem;
+}
+
+/* Contador */
+.contador-clientes {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b !important;
+    font-size: 0.85rem;
+}
+
+.contador-clientes strong {
+    color: #2563eb !important;
+}
+
+/* Mensaje vacío */
+.mensaje-vacio {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.mensaje-vacio p {
+    color: #94a3b8 !important;
+    margin-bottom: 0.75rem;
+}
+
+.mensaje-vacio button {
+    background: #2563eb !important;
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 500px) {
+    .clientes-container {
+        padding: 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .cliente-card {
+        padding: 0.6rem 0.75rem;
+    }
+    
+    .cliente-info h4 {
+        font-size: 0.9rem;
+    }
+    
+    .cliente-datos {
+        font-size: 0.7rem;
+    }
+}
